@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Process - Rishtey Khoon Ke</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <style>
+        :root {
+            --logo-red: #9F0C11;
+            --logo-dark-red: #7a090d;
+            --logo-gold: #ffd700;
+            --logo-white: #ffffff;
+            --logo-light-bg: #fef2f2;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--logo-red);
+            color: var(--logo-white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--logo-gold);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--logo-white);
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--logo-white);
+        }
+        
+        .tagline { 
+            font-size: 0.8rem; 
+            color: var(--logo-gold);
+        }
+        
+        /* Navigation */
+        .nav { 
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: var(--logo-white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav a:hover,
+        .nav a.active { 
+            background: var(--logo-white);
+            color: var(--logo-red);
+        }
+        
+        /* Focus styles for accessibility */
+        .nav a:focus {
+            outline: 2px solid var(--logo-white);
+            outline-offset: 2px;
+        }
+        
+        .donate-btn {
+            background: var(--logo-white);
+            color: var(--logo-red);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: 2px solid var(--logo-white);
+            transition: all 0.3s ease;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        
+        .donate-btn:hover {
+            background: var(--logo-gold);
+            border-color: var(--logo-gold);
+        }
+        
+        .donate-btn:focus {
+            outline: 2px solid var(--logo-white);
+            outline-offset: 2px;
+        }
+        
+        /* Hero Section with Background Image - Less Opacity */
+        .hero {
+            background: linear-gradient(rgba(159, 12, 17, 0.7), rgba(122, 9, 13, 0.75)), 
+                        url('https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--logo-white);
+            padding: 140px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            line-height: 1.8;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--logo-white);
+            color: var(--logo-red);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid var(--logo-white);
+            transition: all 0.3s ease;
+            text-shadow: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            background: var(--logo-gold);
+            border-color: var(--logo-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .btn:focus {
+            outline: 2px solid var(--logo-white);
+            outline-offset: 2px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--logo-white);
+            color: var(--logo-white);
+        }
+        
+        .btn-outline:hover {
+            background: var(--logo-white);
+            color: var(--logo-red);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-light {
+            background: var(--logo-white);
+        }
+        
+        .section-dark {
+            background: var(--logo-light-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--logo-red);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--logo-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--logo-light-bg);
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--logo-red);
+            display: block;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* New Process Steps Grid - 2x2 Layout */
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .process-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .process-step {
+            background: var(--logo-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--logo-light-bg);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(159, 12, 17, 0.15);
+        }
+        
+        .process-step:focus {
+            outline: 2px solid var(--logo-red);
+            outline-offset: 2px;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--logo-red);
+            color: var(--logo-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 3px solid var(--logo-white);
+            z-index: 2;
+        }
+        
+        .step-image {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .process-step h3 {
+            color: var(--logo-red);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .process-step p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* New Eligibility Grid - 2x2 Layout */
+        .eligibility-grid-new {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .eligibility-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .eligibility-card {
+            background: var(--logo-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--logo-light-bg);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .eligibility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(159, 12, 17, 0.15);
+        }
+        
+        .eligibility-card:focus {
+            outline: 2px solid var(--logo-red);
+            outline-offset: 2px;
+        }
+        
+        .eligibility-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: var(--logo-light-bg);
+            border-radius: 50%;
+            color: var(--logo-red);
+        }
+        
+        .eligibility-card h3 {
+            color: var(--logo-red);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .eligibility-card p {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: var(--logo-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--logo-light-bg);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(159, 12, 17, 0.15);
+        }
+        
+        .feature-card:focus {
+            outline: 2px solid var(--logo-red);
+            outline-offset: 2px;
+        }
+        
+        .feature-card h3 {
+            color: var(--logo-red);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--logo-dark-red);
+            color: var(--logo-white);
+            padding: 3rem 0 1.5rem;
+            border-top: 3px solid var(--logo-gold);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--logo-gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--logo-gold);
+        }
+        
+        .footer-section a:focus {
+            outline: 2px solid var(--logo-gold);
+            outline-offset: 2px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--logo-white);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn:focus {
+            outline: 2px solid var(--logo-white);
+            outline-offset: 2px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--logo-red);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.8rem;
+                border-top: 2px solid var(--logo-gold);
+            }
+            
+            .nav.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 120px 1.5rem 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .logo-img {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .process-grid,
+            .eligibility-grid-new,
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-row,
+            .eligibility-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 220px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="https://i.ibb.co/GQ6WJ5QH/New-Project.png" alt="Rishtey Khoon Ke Logo" class="logo-img">
+                <div>
+                    <div>Rishtey Khoon Ke</div>
+                    <div class="tagline">Save Lives With One Donation</div>
+                </div>
+            </a>
+            
+            <nav class="nav" id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="donation.html" class="active">Donation Info</a>
+                <a href="donors.html">Find Donors</a>
+                <a href="donors.html" class="donate-btn">Urgent Need?</a>
+            </nav>
+            
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section with Background Image - Less Opacity -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Blood Donation Process</h1>
+            <p>Learn everything about blood donation - from eligibility to the actual process and aftercare.<br>Your journey to save lives starts here.</p>
+            <div class="hero-buttons">
+                <a href="#process" class="btn">View Process</a>
+                <a href="#eligibility" class="btn btn-outline">Check Eligibility</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="stats">
+                <div class="stat-card">
+                    <span class="stat-number">15-20</span>
+                    <span class="stat-label">Minutes Process</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">56</span>
+                    <span class="stat-label">Days Between</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Lives Saved</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">99%</span>
+                    <span class="stat-label">Safety Rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Steps with 2x2 Grid - Without Illustration -->
+    <section id="process" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Simple 4-Step Process</h2>
+            <p class="section-subtitle">From registration to recovery - we make the entire journey smooth</p>
+            
+            <div class="process-grid">
+                <div class="process-row">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-image">📝</div>
+                        <h3>Registration</h3>
+                        <p>Complete simple registration with basic information and health screening.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-image">🩺</div>
+                        <h3>Health Check</h3>
+                        <p>Professional medical staff checks hemoglobin levels and blood pressure.</p>
+                    </div>
+                </div>
+                
+                <div class="process-row">
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-image">💉</div>
+                        <h3>Blood Collection</h3>
+                        <p>Comfortable donation takes only 10-15 minutes using sterile equipment.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-image">🍪</div>
+                        <h3>Refresh & Recover</h3>
+                        <p>Enjoy refreshments while resting. Body replaces blood within 24-48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility Section with 2x2 Grid - Without Illustration -->
+    <section id="eligibility" class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Donor Eligibility</h2>
+            <p class="section-subtitle">Ensure you meet these requirements for safe donation</p>
+            
+            <div class="eligibility-grid-new">
+                <div class="eligibility-row">
+                    <div class="eligibility-card">
+                        <div class="eligibility-icon">👤</div>
+                        <h3>Age & Weight</h3>
+                        <p>18-65 years old, minimum 50 kg weight for safe donation.</p>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <div class="eligibility-icon">💚</div>
+                        <h3>Health Status</h3>
+                        <p>Generally good health, free from infections and chronic diseases.</p>
+                    </div>
+                </div>
+                
+                <div class="eligibility-row">
+                    <div class="eligibility-card">
+                        <div class="eligibility-icon">🔬</div>
+                        <h3>Hemoglobin</h3>
+                        <p>Minimum 12.5 g/dL for women and 13.0 g/dL for men.</p>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <div class="eligibility-icon">🚫</div>
+                        <h3>Lifestyle</h3>
+                        <p>No recent tattoos/piercings, safe practices, no IV drug use.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Benefits -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Benefits of Donation</h2>
+            <p class="section-subtitle">Donating blood saves lives and offers health advantages</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">❤️</div>
+                    <h3>Heart Health</h3>
+                    <p>Regular donation helps maintain healthy iron levels and improves cardiovascular health.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Free Checkup</h3>
+                    <p>Receive complimentary health screening including blood pressure and hemoglobin tests.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Fresh Blood Cells</h3>
+                    <p>Stimulates production of new blood cells for a healthier circulatory system.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2.5rem;">
+                <a href="donors.html" class="btn">Start Donating</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Rishtey Khoon Ke</h3>
+                    <p>Making blood donation accessible and safe for everyone. Join our mission to save lives.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="donation.html">Donation Process</a></p>
+                    <p><a href="donors.html">Find Donors</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <p>Helpline: +92 300 123 4567</p>
+                    <p>Email: support@rishteykhoonke.org</p>
+                    <p>24/7 Emergency Help</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Rishtey Khoon Ke. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    document.getElementById('mainNav').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
